@@ -4,37 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إهداء خاص</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* التنسيق بالكامل داخل ملف واحد */
+        body, html { height: 100%; margin: 0; font-family: sans-serif; overflow: hidden; background-color: #fce4ec; }
+        .page { position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; transition: opacity 0.5s ease; }
+        .hidden { opacity: 0; pointer-events: none; }
+        
+        .content-box { z-index: 10; background: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #880e4f; }
+        button { padding: 15px 40px; font-size: 18px; background: #ff4081; color: white; border: none; border-radius: 30px; cursor: pointer; margin: 10px; }
+        
+        /* القلوب */
+        .heart { position: absolute; font-size: 20px; color: red; animation: fall linear infinite; }
+        @keyframes fall { 0% { transform: translateY(-50px); } 100% { transform: translateY(100vh); } }
+        
+        /* حركة النص */
+        .beat { animation: beat 0.8s infinite alternate; font-size: 50px; color: #d81b60; font-weight: bold; }
+        @keyframes beat { to { transform: scale(1.2); } }
+    </style>
 </head>
 <body>
 
-    <!-- الصفحة الأولى: قلوب متحركة -->
+    <!-- الصفحة الأولى -->
     <div id="page1" class="page">
-        <div class="hearts-background"></div> <!-- حاوية القلوب المتحركة -->
         <div class="content-box">
             <h1>الحب والحنان من امتنان</h1>
-            <button onclick="showPage2()">الحب</button>
+            <button onclick="nextPage('page2')">الحب</button>
         </div>
     </div>
 
-    <!-- الصفحة الثانية: الخيارات -->
+    <!-- الصفحة الثانية -->
     <div id="page2" class="page hidden">
         <div class="content-box">
-            <h2>اختر ما تريد:</h2>
-            <div class="options">
-                <button onclick="showFinal()">للبوس</button>
-                <button onclick="showFinal()">للحضن</button>
-                <button onclick="showFinal()">للمواساة</button>
-                <button onclick="showFinal()">لكلمة أحبك</button>
-            </div>
+            <button onclick="nextPage('page3')">للبوس</button>
+            <button onclick="nextPage('page3')">للحضن</button>
+            <button onclick="nextPage('page3')">للمواساة</button>
+            <button onclick="nextPage('page3')">لكلمة أحبك</button>
         </div>
     </div>
 
-    <!-- الصفحة النهائية: نص يتحرك -->
+    <!-- الصفحة الثالثة -->
     <div id="page3" class="page hidden">
-        <h1 class="bold-text beat-animation">بشر أمك</h1>
+        <h1 class="beat">بشر أمك</h1>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function nextPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        // إنشاء القلوب
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+    </script>
 </body>
 </html>

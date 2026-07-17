@@ -1,33 +1,116 @@
-body {
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Tajawal', sans-serif; /* خط عربي جميل */
+    overflow: hidden; /* لمنع ظهور أشرطة التمرير بسبب القلوب */
     background-color: #fce4ec;
-    font-family: Arial, sans-serif;
+}
+
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    text-align: center;
+    transition: opacity 0.5s ease;
 }
 
-.page { text-align: center; }
-.hidden { display: none; }
+.hidden {
+    opacity: 0;
+    pointer-events: none; /* تعطيل الأزرار في الصفحة المخفية */
+}
+
+.content-box {
+    z-index: 10; /* لجعل المحتوى فوق القلوب */
+    background-color: rgba(255, 255, 255, 0.8); /* خلفية شبه شفافة للنص */
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h1 { color: #880e4f; margin-bottom: 20px; }
 
 button {
-    padding: 15px 30px;
+    padding: 15px 40px;
     font-size: 18px;
-    background-color: #ff4081;
+    background: linear-gradient(45deg, #ff4081, #f50057);
     color: white;
     border: none;
-    border-radius: 20px;
+    border-radius: 30px;
     cursor: pointer;
     margin: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-weight: bold;
 }
 
-.options { display: flex; flex-direction: column; }
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(245, 0, 87, 0.4);
+}
 
-.heart { color: red; font-size: 50px; margin-top: 20px; }
+.options { display: flex; flex-direction: column; gap: 10px; }
 
+/* --- تأثيرات القلوب المتحركة (الصفحة الأولى) --- */
+.hearts-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.heart-shape {
+    position: absolute;
+    display: block;
+    background-color: rgba(255, 82, 82, 0.6); /* لون القلب */
+    transform: rotate(-45deg);
+    animation: fall linear infinite; /* حركة السقوط */
+}
+
+.heart-shape::before,
+.heart-shape::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+    border-radius: 50%;
+}
+
+.heart-shape::before { top: -50%; left: 0; }
+.heart-shape::after { top: 0; left: -50%; }
+
+/* كي إف إم (Animation) لسقوط القلوب واهتزازها */
+@keyframes fall {
+    0% {
+        transform: translateY(-100px) rotate(-45deg) scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(-45deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* --- تأثير نبض النص (الصفحة الأخيرة) --- */
 .bold-text {
-    font-size: 60px;
+    font-size: 80px;
     font-weight: 900;
-    color: #880e4f;
+    color: #d81b60;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.beat-animation {
+    animation: beat 0.8s infinite alternate;
+}
+
+@keyframes beat {
+    to {
+        transform: scale(1.1);
+        text-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
 }

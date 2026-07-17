@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>إهداء خاص</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- الصفحة الأولى -->
+    <div id="page1" class="page">
+        <h1>الحب والحنان من امتنان</h1>
+        <button onclick="showPage2()">الحب</button>
+        <div class="heart">❤️</div>
+    </div>
+
+    <!-- الصفحة الثانية -->
+    <div id="page2" class="page hidden">
+        <h2>اختر ما تريد:</h2>
+        <div class="options">
+            <button onclick="showFinal()">للبوس</button>
+            <button onclick="showFinal()">للحضن</button>
+            <button onclick="showFinal()">للمواساة</button>
+            <button onclick="showFinal()">لكلمة أحبك</button>
+        </div>
+    </div>
+
+    <!-- الصفحة النهائية -->
+    <div id="page3" class="page hidden">
+        <h1 class="bold-text">بشر أمك</h1>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
